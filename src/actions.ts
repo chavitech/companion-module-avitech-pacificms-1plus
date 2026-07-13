@@ -285,6 +285,7 @@ export function UpdateActions(self: ModuleInstance): void {
 				const url =
 					'/cgi-bin/command.cgi?cmd=Salvo&param=[{"func":"take","name":"' + event.options.take_salvo_str + '"}]'
 				console.log(url)
+				console.log('ip: ' + ip + ' port: ' + port)
 				httpSend(self, ip, port, url)
 			},
 		},
@@ -346,6 +347,108 @@ export function UpdateActions(self: ModuleInstance): void {
 					',"label":"' +
 					event.options.port_str +
 					'"}]}]'
+				httpSend(self, ip, port, url)
+			},
+		},
+
+		// http://192.168.0.5/cgi-bin/command.cgi?cmd=2060&param=[{"func":"set","type":"preset","location":2,"port":1,"data":{"preset_name":"1"}}]
+		set_preset_action: {
+			name: 'Set Preset (Q)',
+			options: [
+				{
+					type: 'dropdown',
+					id: 'location_num',
+					label: 'Slot Location Number',
+					default: '1',
+					choices: [
+						{ id: '1', label: '1' },
+						{ id: '2', label: '2' },
+						{ id: '3', label: '3' },
+						{ id: '4', label: '4' },
+						{ id: '5', label: '5' },
+					],
+				},
+				{
+					type: 'dropdown',
+					id: 'preset_dropdown',
+					label: 'Preset',
+					default: '1',
+					choices: [
+						{ id: '1', label: '1' },
+						{ id: '2', label: '2' },
+						{ id: '3', label: '3' },
+						{ id: '4', label: '4' },
+						{ id: '5', label: '5' },
+					],
+				},
+			],
+
+			callback: async function (event) {
+				const ip = self.config.host
+				const port = self.config.port
+				const url =
+					'/cgi-bin/command.cgi?cmd=2060&param=[{"func":"set","type":"preset","location":' +
+					event.options.location_num +
+					',"port":1,"data":{"preset_name":"' +
+					event.options.preset_dropdown +
+					'"}}]'
+				httpSend(self, ip, port, url)
+			},
+		},
+
+		// http://192.168.0.5/cgi-bin/command.cgi?cmd=2060&param=[{"func":"load","type":"preset","location":6,"port":1,"data":{"preset_num":3}}]
+		load_preset_action: {
+			name: 'Load Preset (Q)',
+			options: [
+				{
+					type: 'dropdown',
+					id: 'location_num',
+					label: 'Slot Location Number',
+					default: '1',
+					choices: [
+						{ id: '1', label: '1' },
+						{ id: '2', label: '2' },
+						{ id: '3', label: '3' },
+						{ id: '4', label: '4' },
+						{ id: '5', label: '5' },
+					],
+				},
+				{
+					type: 'dropdown',
+					id: 'preset_dropdown',
+					label: 'Preset',
+					default: '1',
+					choices: [
+						{ id: '1', label: '1' },
+						{ id: '2', label: '2' },
+						{ id: '3', label: '3' },
+						{ id: '4', label: '4' },
+						{ id: '5', label: '5' },
+					],
+				},
+				{
+					type: 'dropdown',
+					id: 'return_response_dropdown',
+					label: 'Return Response',
+					default: '1',
+					choices: [
+						{ id: '0', label: 'No' },
+						{ id: '1', label: 'Yes' },
+					],
+				},
+			],
+
+			callback: async function (event) {
+				const ip = self.config.host
+				const port = self.config.port
+				const url =
+					'/cgi-bin/command.cgi?cmd=2060&param=[{"func":"load","type":"preset","location":' +
+					event.options.location_num +
+					',"port":1,"data":{"preset_num":' +
+					event.options.preset_dropdown +
+					'},"return_response":' +
+					event.options.return_response_dropdown +
+					'}}]'
 				httpSend(self, ip, port, url)
 			},
 		},
