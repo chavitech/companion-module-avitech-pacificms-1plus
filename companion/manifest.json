@@ -3,7 +3,7 @@
 	"name": "avitech-pacificms1plus",
 	"shortname": "avitech-pacific-ms-1plus",
 	"description": "Control module for the Avitech Pacific MS 1Plus Series",
-	"version": "1.0.1",
+	"version": "1.1.1",
 	"license": "MIT",
 	"repository": "git+https://github.com/chavitech/companion-module-avitech-pacificms-1plus.git",
 	"bugs": "https://github.com/chavitech/companion-module-avitech-pacificms-1plus/issues",
