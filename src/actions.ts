@@ -262,7 +262,6 @@ export function UpdateActions(self: ModuleInstance): void {
 					'{"input":12,"output":[' +
 					event.options.output_to_input_12_str +
 					']}]}]'
-				console.log(url)
 				httpSend(self, ip, port, url)
 			},
 		},
@@ -284,8 +283,6 @@ export function UpdateActions(self: ModuleInstance): void {
 				const port = self.config.port
 				const url =
 					'/cgi-bin/command.cgi?cmd=Salvo&param=[{"func":"take","name":"' + event.options.take_salvo_str + '"}]'
-				console.log(url)
-				console.log('ip: ' + ip + ' port: ' + port)
 				httpSend(self, ip, port, url)
 			},
 		},
@@ -449,6 +446,52 @@ export function UpdateActions(self: ModuleInstance): void {
 					'},"return_response":' +
 					event.options.return_response_dropdown +
 					'}}]'
+				httpSend(self, ip, port, url)
+			},
+		},
+
+		// http://192.168.0.5/cgi-bin/command.cgi?cmd=Daisy&param=[{%22func%22:%22preset%22,%22type%22:%22set%22,%22name%22:%22presetName%22}]
+		save_cpb_preset_action: {
+			name: 'Save Preset (CPB)',
+			options: [
+				{
+					id: 'preset_name_str',
+					type: 'textinput',
+					label: 'Preset Name',
+					tooltip: omit_char_str,
+				},
+			],
+
+			callback: async function (event) {
+				const ip = self.config.host
+				const port = self.config.port
+				const url =
+					'/cgi-bin/command.cgi?cmd=Daisy&param=[{"func":"preset","type":"set","name":"' +
+					event.options.preset_name_str +
+					'"}]'
+				httpSend(self, ip, port, url)
+			},
+		},
+
+		// http://192.168.0.5/cgi-bin/command.cgi?cmd=Daisy&param=[{%22func%22:%22preset%22,%22type%22:%22load%22,%22location%22:50,%22port%22:1,%22data%22:{%22preset_name%22:%22Bug%22}}]
+		load_cpb_preset_action: {
+			name: 'Load Preset (CPB)',
+			options: [
+				{
+					id: 'preset_name_str',
+					type: 'textinput',
+					label: 'Preset Name',
+					tooltip: omit_char_str,
+				},
+			],
+
+			callback: async function (event) {
+				const ip = self.config.host
+				const port = self.config.port
+				const url =
+					'/cgi-bin/command.cgi?cmd=Daisy&param=[{"func":"preset","type":"load","data":{"preset_name":"' +
+					event.options.preset_name_str +
+					'"}}]'
 				httpSend(self, ip, port, url)
 			},
 		},
