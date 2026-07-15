@@ -1,6 +1,6 @@
 {
 	"name": "avitech-pacificms1plus",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"main": "dist/main.js",
 	"type": "module",
 	"scripts": {
